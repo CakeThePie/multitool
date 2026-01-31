@@ -1,44 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restricted Access</title>
+    <title>Login - Welcome</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f2f5; }
-        .login-card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
-        input { padding: 10px; width: 80%; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
-        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        button:hover { background: #0056b3; }
-        #message { color: red; font-size: 0.9rem; margin-top: 10px; }
+        /* Import Font từ file zip/thư mục trên GitHub */
+        @font-face {
+            font-family: 'TalinaFont';
+            src: url('talinafont.ttf') format('truetype'); /* Đảm bảo file ttf nằm cùng thư mục */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Tiểu đề trên giữa màn hình */
+        .top-title {
+            position: absolute;
+            top: 10%;
+            font-size: 1.5rem;
+            color: #333;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Hiệu ứng dao động (Vibration) */
+        @keyframes vibrate {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Box Password */
+        .login-container {
+            animation: vibrate 0.3s linear infinite; /* Dao động tại chỗ */
+            transition: transform 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: scale(1.1); /* Phóng to nhẹ khi hover */
+            animation-play-state: paused; /* Dừng dao động khi hover để dễ nhập */
+        }
+
+        input[type="password"] {
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            border: 2px solid #000000; /* Viền đen */
+            background-color: #ffffff;
+            border-radius: 5px;
+            outline: none;
+            text-align: center;
+            /* Hiệu ứng Neon Trắng */
+            box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ddd;
+            transition: box-shadow 0.3s ease;
+        }
+
+        input[type="password"]:focus {
+            box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #bbb;
+        }
+
+        /* Nút Login (Tùy chọn thêm để đẹp hơn) */
+        button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 8px 20px;
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* Thông tin góc dưới bên phải */
+        .footer-credit {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 8px; /* Siêu nhỏ */
+            color: #000; /* Bạn yêu cầu font trắng nhưng trên nền trắng sẽ ko thấy, tôi để đen/xám nhẹ hoặc bạn đổi lại #fff tùy ý */
+            font-family: 'TalinaFont', sans-serif;
+            opacity: 0.6;
+        }
+
+        #error-msg {
+            color: red;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            height: 10px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="login-card">
-        <h2>Enter Password</h2>
-        <input type="password" id="passInput" placeholder="Password">
-        <br>
-        <button onclick="checkPassword()">Login</button>
-        <div id="message"></div>
+    <div class="top-title">Welcome to the Site</div>
+
+    <div class="login-container">
+        <input type="password" id="passInput" placeholder="ENTER CODE">
+        <div id="error-msg"></div>
+        <button onclick="checkPass()">ENTER</button>
     </div>
 
+    <div class="footer-credit">Created by H.P.H - Max</div>
+
     <script>
-        function checkPassword() {
-            const pass = document.getElementById('passInput').value;
-            const message = document.getElementById('message');
-            
-            // The password check
-            if (pass === "6981") {
+        function checkPass() {
+            const val = document.getElementById('passInput').value;
+            if (val === "6981") {
                 window.location.href = "home.html";
             } else {
-                message.innerText = "Incorrect password. Try again.";
+                document.getElementById('error-msg').innerText = "Wrong Password!";
+                // Hiệu ứng rung mạnh khi sai
+                document.querySelector('.login-container').style.animation = "vibrate 0.1s linear infinite";
+                setTimeout(() => {
+                    document.querySelector('.login-container').style.animation = "vibrate 0.3s linear infinite";
+                }, 500);
             }
         }
 
-        // Allow pressing "Enter" key to login
+        // Nhấn Enter để vào
         document.getElementById('passInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') { checkPassword(); }
+            if (e.key === 'Enter') { checkPass(); }
         });
     </script>
 </body>
