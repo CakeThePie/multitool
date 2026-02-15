@@ -1,132 +1,312 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Home Site</title>
-    <style>
-        /* Basic Reset & Branding */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            line-height: 1.6;
-            color: #333;
-        }
+<meta charset="UTF-8">
+<title>The Site</title>
 
-        /* Navigation */
-        nav {
-            background: #2c3e50;
-            color: white;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+<style>
+*{
+  box-sizing:border-box;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  scroll-behavior:auto;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 15px;
-        }
+html, body{
+  overscroll-behavior: none; /* NGĂN PULL TO REFRESH */
+}
 
-        /* Hero Section */
-        .hero {
-            background: #f4f4f4;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
+body{
+  margin:0;
+  background:#f5f5f5;
+  color:#111;
+}
 
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
+/* ===== HEADER ===== */
+header{
+  width:100%;
+  background:#ffffff;
+  border-bottom:1px solid #e5e5e5;
+  position:sticky;
+  top:0;
+  z-index:999;
+  overflow:hidden;
+  transition:all .45s cubic-bezier(.4,0,.2,1);
+}
 
-        /* Content Sections */
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            padding: 40px 20px;
-        }
+/* EXTENDED STATE */
+.header-extended{
+  padding:60px 10%;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:60px;
+  max-height:500px;
+  opacity:1;
+  transition:all .45s cubic-bezier(.4,0,.2,1);
+}
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+.header-left h1{
+  margin:0;
+  font-size:48px;
+  font-weight:800;
+}
 
-        .card {
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 8px;
-            transition: transform 0.3s;
-        }
+.header-left .tagline{
+  font-size:14px;
+  color:#666;
+  margin-top:8px;
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+.header-right{
+  max-width:600px;
+  font-size:14px;
+  line-height:1.7;
+  color:#333;
+}
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: #2c3e50;
-            color: white;
-            margin-top: 40px;
-        }
-    </style>
+.header-right strong{
+  display:block;
+  margin-top:20px;
+}
+
+.fake-link{
+  margin-top:15px;
+  display:inline-block;
+  font-size:14px;
+  color:#000;
+  border-bottom:1px solid #000;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.fake-link:hover{
+  opacity:.6;
+}
+
+/* COMPACT STATE */
+.header-compact{
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  max-height:80px;
+  opacity:1;
+  transition:all .45s cubic-bezier(.4,0,.2,1);
+}
+
+.logo{
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  position:fixed;
+  left:0;
+  top:120px;
+  height:calc(100vh - 120px);
+  width:60px;
+  background:#ffffff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-top:20px;
+  gap:8px;
+  border-right:1px solid #e5e5e5;
+  transition:top .45s cubic-bezier(.4,0,.2,1), height .45s cubic-bezier(.4,0,.2,1);
+}
+
+.sidebar a{
+  text-decoration:none;
+  color:#888;
+  font-size:13px;
+  transition:.2s ease;
+}
+
+.sidebar a:hover{
+  color:#000;
+  transform:scale(1.2);
+}
+
+/* ===== CONTENT ===== */
+.content{
+  margin-left:80px;
+  padding:80px 40px;
+  max-width:900px;
+}
+
+.section{
+  margin-bottom:100px;
+}
+
+.section h2{
+  font-size:22px;
+  font-weight:600;
+  margin-bottom:20px;
+  letter-spacing:2px;
+}
+
+/* ADD BOX */
+.add-box{
+  width:140px;
+  height:140px;
+  border:2px dashed #ccc;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:48px;
+  color:#bbb;
+  cursor:pointer;
+  transition:.25s ease;
+  overflow:hidden;
+  position:relative;
+  background:#fafafa;
+}
+
+.add-box:hover{
+  border-color:#000;
+  color:#000;
+  transform:scale(1.05);
+}
+
+.add-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  position:absolute;
+  inset:0;
+  border-radius:20px;
+}
+
+input[type="file"]{
+  display:none;
+}
+</style>
 </head>
+
 <body>
 
-    <nav>
-        <div class="logo"><strong>BrandName</strong></div>
-        <div class="links">
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
+<header id="mainHeader">
+  <div class="header-extended" id="headerContent">
+    <div class="header-left">
+      <h1>The Site</h1>
+      <div class="tagline">The Best Among Them All</div>
+    </div>
 
-    <header class="hero">
-        <h1>Welcome Home</h1>
-        <p>A simple, elegant space for your digital identity.</p>
-    </header>
+    <div class="header-right">
+      <strong>Về nơi này</strong>
+      Những gì tôi viết ở đây không phải lý thuyết suông. Đó là những quy luật tôi đúc kết được từ trải nghiệm thực tế, được trình bày bằng mô phỏng và thuật toán vì ngôn từ đôi khi quá hạn hẹp để diễn tả bản chất. Muốn nắm bắt nhanh hơn, hãy nhìn vào cách tôi trực quan hóa chúng.
 
-    <main class="container">
-        <section id="about">
-            <h2>About This Site</h2>
-            <p>This is a placeholder for your story. Whether you're a developer, a writer, or a hobbyist, this section is where you introduce your vision.</p>
-        </section>
+      <strong>Cách sử dụng</strong>
+      Trang chủ được hệ thống theo thứ tự Alphabet. Nhấn vào từng chữ cái để mở rộng danh mục nội dung cụ thể. Hãy xác định rõ thứ mình cần tìm trước khi bắt đầu.
 
-        <hr>
+      <div class="fake-link" onclick="goAbout()">
+        Bạn là ai mà bắt tôi nghe bạn trình bày?
+      </div>
+    </div>
+  </div>
+</header>
 
-        <section id="services" style="margin-top: 40px;">
-            <h2>What I Do</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>Design</h3>
-                    <p>Creating beautiful interfaces that are easy to use.</p>
-                </div>
-                <div class="card">
-                    <h3>Development</h3>
-                    <p>Writing clean, efficient code for the modern web.</p>
-                </div>
-                <div class="card">
-                    <h3>Strategy</h3>
-                    <p>Helping brands grow through digital innovation.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+<div class="sidebar" id="sidebar"></div>
+<div class="content" id="content"></div>
 
-    <footer>
-        <p>&copy; 2026 My Home Site. Built with curiosity.</p>
-    </footer>
+<script>
+/* ===== Generate Alphabet ===== */
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const sidebar = document.getElementById("sidebar");
+const content = document.getElementById("content");
+
+letters.forEach(letter=>{
+  const link = document.createElement("a");
+  link.textContent = letter;
+  link.href = "javascript:void(0)";
+  link.onclick = () => slowScrollTo(document.getElementById(letter).offsetTop - 20);
+  sidebar.appendChild(link);
+
+  content.innerHTML += `
+    <div class="section" id="${letter}">
+      <h2>${letter}</h2>
+      <label class="add-box">
+        +
+        <input type="file" accept="image/*" onchange="previewImage(event)">
+      </label>
+    </div>
+  `;
+});
+
+/* ===== Image Preview ===== */
+function previewImage(event){
+  const box = event.target.parentElement;
+  const file = event.target.files[0];
+  if(file){
+    const reader = new FileReader();
+    reader.onload = function(e){
+      box.innerHTML = `<img src="${e.target.result}">`;
+    }
+    reader.readAsDataURL(file);
+  }
+}
+
+/* ===== Go About ===== */
+function goAbout(){
+  window.location.href = "aboutme002.html";
+}
+
+/* ===== Header Collapse Animation ===== */
+const headerContent = document.getElementById("headerContent");
+let compact = false;
+
+window.addEventListener("scroll", ()=>{
+  if(window.scrollY > 150 && !compact){
+    compact = true;
+    headerContent.className = "header-compact";
+    headerContent.innerHTML = `<div class="logo" onclick="scrollToTop()">The Site</div>`;
+    sidebar.style.top = "60px";
+    sidebar.style.height = "calc(100vh - 60px)";
+  }
+  if(window.scrollY <= 150 && compact){
+    compact = false;
+    location.reload(); /* giữ nguyên logic gốc */
+  }
+});
+
+/* ===== Slower Scroll To Top ===== */
+let scrollAnimation;
+
+function scrollToTop(){
+  cancelAnimationFrame(scrollAnimation);
+
+  function step(){
+    const current = window.scrollY;
+    if(current > 0){
+      window.scrollTo(0, current - current/20); /* CHẬM HƠN */
+      scrollAnimation = requestAnimationFrame(step);
+    }
+  }
+  step();
+}
+
+/* ===== Alphabet Scroll (chậm hơn scrollToTop 1 chút) ===== */
+function slowScrollTo(target){
+  cancelAnimationFrame(scrollAnimation);
+
+  function step(){
+    const current = window.scrollY;
+    const distance = target - current;
+
+    if(Math.abs(distance) > 1){
+      window.scrollTo(0, current + distance/30); /* CHẬM HƠN scrollToTop */
+      scrollAnimation = requestAnimationFrame(step);
+    }
+  }
+  step();
+}
+
+/* Cancel scroll if user interacts */
+window.addEventListener("wheel", ()=>cancelAnimationFrame(scrollAnimation));
+window.addEventListener("touchstart", ()=>cancelAnimationFrame(scrollAnimation));
+</script>
 
 </body>
 </html>
