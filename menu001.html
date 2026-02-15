@@ -11,8 +11,6 @@
   scroll-behavior:auto;
 }
 
-html, body{
-  overscroll-behavior: none; /* NGĂN PULL TO REFRESH */
 }
 
 body{
@@ -258,14 +256,14 @@ const headerContent = document.getElementById("headerContent");
 let compact = false;
 
 window.addEventListener("scroll", ()=>{
-  if(window.scrollY > 150 && !compact){
+  if(window.scrollY > 100 && !compact){
     compact = true;
     headerContent.className = "header-compact";
     headerContent.innerHTML = `<div class="logo" onclick="scrollToTop()">The Site</div>`;
     sidebar.style.top = "60px";
     sidebar.style.height = "calc(100vh - 60px)";
   }
-  if(window.scrollY <= 150 && compact){
+  if(window.scrollY <= 100 && compact){
     compact = false;
     location.reload(); /* giữ nguyên logic gốc */
   }
